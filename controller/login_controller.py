@@ -9,10 +9,10 @@ dir = dir.replace('controller','data')
 
 os.chdir(dir)
 
-def validateUser(username, password):
+def validateUser(username, password, app):
     isValid = login(username, password)
     if isValid:
-        login_success()
+        login_success(app)
     else:
         login_error()
 

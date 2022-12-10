@@ -19,7 +19,7 @@ def login_window():
     password.grid(row=2, column=1)
 
     login_button = Button(
-        app, text="Login", command=lambda: validateUser(user_name.get(), password.get()))
+        app, text="Login", command=lambda: validateUser(user_name.get(), password.get(), app))
 
     login_button.grid(row=3, column=1)
 
