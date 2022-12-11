@@ -7,3 +7,15 @@ def loginError():
 
 def loginSuccess(app, current_user):
     selectRole(app,current_user)
+
+def inputRPSError():
+    messagebox.showerror('Input Error', 'Invalid type')
+
+def winGameMes():
+    messagebox.showinfo('Result', 'Congratulations you win')
+
+def loseGameMes():
+    messagebox.showinfo('Result', 'Unlucky you lose')
+
+def drawGameMes():
+    messagebox.showinfo('Result', 'It a tie')
