@@ -1,7 +1,7 @@
-from view.login_window import login_window
+from view.login_window import loginWindowMain
 
 def main():
-    login_window()
+    loginWindowMain()
     
 if __name__ == "__main__":
     main()

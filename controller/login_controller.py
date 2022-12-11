@@ -1,5 +1,7 @@
 import os
-from view.message_box import login_error, login_success
+from view.message_box import loginError
+from view.role_window import selectRole
+from controller.user_controller import addUserToList, showUserList, addAdminToList
 
 path = os.path.realpath(__file__)
 
@@ -10,11 +12,17 @@ dir = dir.replace('controller','data')
 os.chdir(dir)
 
 def validateUser(username, password, app):
-    isValid = login(username, password)
+    isValid, user_role = login(username, password)
+    print(user_role)
     if isValid:
-        login_success(app)
+        if user_role == 0:
+            current_user = addAdminToList(username, password)
+        else:
+            current_user = addUserToList(username, password)
+        showUserList()
+        selectRole(app,current_user)
     else:
-        login_error()
+        loginError()
 
 def isUserNameValid(input_user, username):
     if input_user == username:
@@ -40,6 +48,7 @@ def login(username, password):
 
         if validUserName and validPassword:
             access_grant = True
+            role = user_info[2]
             break
     f.close()
-    return access_grant
+    return access_grant, int(role)

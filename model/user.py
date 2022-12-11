@@ -1,10 +1,18 @@
+from model.account import Account
+from model.game import Game
+from abc import ABC, abstractmethod
 class User:
-    def __init__(self, user_id, password):
-        self.__user_id = user_id
+    def __init__(self, user_id, user_name, password):
+        self.__user_id = int(user_id)
+        self.__user_name = user_name
         self.__password = password
+        # self.__account = Account()
 
     def getUserId(self):
         return self.__user_id
+
+    def getUserName(self):
+        return self.__user_name
 
     def getPassword(self):
         return self.__password
@@ -15,19 +23,38 @@ class User:
     def setPassword(self, password):
         self.__password = password
 
+    # def isHasAccount(self):
+    #     return self.__account.getBalance()
+
+    # def getUserAccount(self):
+    #     return self.__account
+
+    # def updateAccount(self, account):
+    #     self.__account = account
+
+    @abstractmethod
+    def isAdmin(self):
+        return False
+
+    def __del__(self):
+        print("user deleted")
+
 class Admin(User):
-    def __init__(self, user_id, password):
-        super().__init__(self, user_id, password)
+    def __init__(self, user_id,user_name, password):
+        User.__init__(self, user_id, user_name ,password)
 
     def addGame(self):
-        pass
+        print('add game')
 
     def EditGame(self):
-        pass
+        print("edit game")
 
     def DeleteGame(self):
-        pass
+        print('delete game')
 
     def AddMoneyPool(self):
-        pass
+        print('add money pool')
+
+    def isAdmin(self):
+        return True
     

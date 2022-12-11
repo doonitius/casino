@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import ttk
 from controller.login_controller import validateUser
 
-def login_window():
+def loginWindowMain():
     app = Tk()
     app.title('Casino Jade Noi 888 @Login')
 
@@ -17,7 +17,6 @@ def login_window():
 
     user_name.grid(row=1, column=1)
     password.grid(row=2, column=1)
-
     login_button = Button(
         app, text="Login", command=lambda: validateUser(user_name.get(), password.get(), app))
 

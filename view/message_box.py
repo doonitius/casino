@@ -1,9 +1,9 @@
 from tkinter import *
 from tkinter import messagebox
-from view.role_window import select_role
+from view.role_window import selectRole
 
-def login_error():
+def loginError():
     messagebox.showerror('Login Error', 'Invalid username or password')
 
-def login_success(app):
-    select_role(app)
+def loginSuccess(app, current_user):
+    selectRole(app,current_user)

@@ -1,27 +1,36 @@
 from tkinter import *
 from tkinter import ttk
+from controller.user_controller import removeUserFromList
 
-def close_window(app):
+def closeWindow(app):
     app.destroy()
 
-def select_role(last_window):
-    close_window(last_window)
+def userLogOut(app, current_user):
+    removeUserFromList(current_user)
+    app.destroy()
+
+
+def selectRole(last_window, current_user):
+    closeWindow(last_window)
     app = Tk()
     app.title("Select role @Menu")
 
     user_button = Button(app, text='User',
-                        command = lambda: user_menu_window(app))
+                        command=lambda: userMenuWindow(app, current_user))
     admin_button = Button(app, text='Admin',
-                        command = lambda: admin_menu_window(app))
+                        command=lambda: adminMenuWindow(app, current_user))
+    logout_button = Button(app, text='Logout',
+                        command=lambda: userLogOut(app, current_user))
     
     user_button.grid(row=0,column=0)
     admin_button.grid(row=0,column=1)
-    
+    logout_button.grid(row=0,column=2)
+
     app.geometry("400x200")
     app.mainloop()
 
-def user_menu_window(last_window):
-    close_window(last_window)
+def userMenuWindow(last_window, current_user):
+    closeWindow(last_window)
 
     app = Tk()
     app.title("User menu @Menu")
@@ -35,16 +44,16 @@ def user_menu_window(last_window):
     tabControl.pack(expand=1, fill="both")
 
     ttk.Label(tab_play, text='Let play game in Jade Noi 888').grid(column=0,row=0)
-    Button(tab_play, text='Back',command=lambda: select_role(app)).grid(column=0,row=3)
+    Button(tab_play, text='Back',command=lambda: selectRole(app)).grid(column=0,row=3)
 
     ttk.Label(tab_pay, text='Mange your Payment').grid(column=0,row=1)
-    Button(tab_pay, text='Back',command=lambda: select_role(app)).grid(column=0,row=3)
+    Button(tab_pay, text='Back',command=lambda: selectRole(app)).grid(column=0,row=3)
 
     app.geometry("300x300")
     app.mainloop()
 
-def admin_menu_window(last_window):
-    close_window(last_window)
+def adminMenuWindow(last_window, current_user):
+    closeWindow(last_window)
 
     app = Tk()
     app.title("Admin menu @Menu")
@@ -58,10 +67,10 @@ def admin_menu_window(last_window):
     tabControl.pack(expand=1, fill='both')
 
     ttk.Label(tab_add, text='Add game in to Jade noi 888').grid(column=0,row=0)
-    Button(tab_add, text='Back',command=lambda: select_role(app)).grid(column=0,row=3)
+    Button(tab_add, text='Back',command=lambda: selectRole(app)).grid(column=0,row=3)
 
     ttk.Label(tab_select, text='Select game to make action').grid(column=0,row=0)
-    Button(tab_select, text='Back',command=lambda: select_role(app)).grid(column=0,row=3)
+    Button(tab_select, text='Back',command=lambda: selectRole(app)).grid(column=0,row=3)
 
     app.geometry("400x200")
     app.mainloop()
