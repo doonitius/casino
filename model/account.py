@@ -40,24 +40,3 @@ class TransactionLog:
 
     def getAccountId(self):
         return self.__account_id
-
-class Payment:
-    def __init__(self, payment_id, account_id):
-        self.__payment_id = payment_id
-        self.__account_id = account_id
-
-class CreditCard(Payment):
-    def __init__(self, payment_id, account_id, card_id):
-        Payment.__init__(self, payment_id, account_id)
-        self.__card_id = card_id
-
-    def getCardId(self):
-        return self.__card_id
-
-class Bank(Payment):
-    def __init__(self, payment_id, account_id, bank_id):
-        Payment.__init__(self, payment_id, account_id)
-        self.__bank_id = bank_id
-
-    def getCardId(self):
-        return self.__bank_id

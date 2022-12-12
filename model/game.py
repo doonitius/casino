@@ -196,12 +196,17 @@ class BlackJack(Game):
         self.__player_hand = []
         self.__dealer_hand = []
 
+    def drawCard(self):
+        #face card
+        face_card = [11,12,13]
+        card = random.randint(1,13)
+        if card in face_card: return 10
+        return card
+        
     def play(self):
         for card in range(0,2):
-            self.__player_hand.append(random.randint(1,10))
-            self.__dealer_hand.append(random.randint(1,10))
-        print(self.__player_hand)
-        print(self.__dealer_hand)
+            self.__player_hand.append(self.drawCard())
+            self.__dealer_hand.append(self.drawCard())
         return self.__player_hand, self.__dealer_hand
 
     def checkWinCon(self):
@@ -222,10 +227,10 @@ class BlackJack(Game):
 
     def checkDealer(self, action):
         
-        if sum(self.__dealer_hand) < 17: self.__dealer_hand.append(random.randint(1,10))
+        if sum(self.__dealer_hand) < 17: self.__dealer_hand.append(self.drawCard())
         else: self.__dealer_hand.append(0)
 
-        if action == 1: self.__player_hand.append(random.randint(1,10))
+        if action == 1: self.__player_hand.append(self.drawCard())
         else: self.__player_hand.append(0)
 
         return self.__player_hand, self.__dealer_hand, self.checkWinCon()
@@ -247,16 +252,3 @@ class BlackJack(Game):
 
     def userBet(self, player_bet):
         self.__player_bet = float(player_bet)
-
-class PlayGame(Game):
-    def playGame(self):
-        pass
-
-    def winGame(self):
-        pass
-
-    def lostGame(self):
-        pass
-
-    def userBet(self, player_bet):
-        self.__player_bet = player_bet

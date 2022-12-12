@@ -2,8 +2,8 @@ from tkinter import *
 from tkinter import ttk
 import view.role_window # Should not be in role_window
 import view.game_window
-import game.game
 from game.blackjack import playBlackjack, checkResult
+from controller.game_controller import removeGameFromList
 
 def reWindow(last_window, current_user, player, dealer, action, bet, game):
     view.role_window.closeWindow(last_window)
@@ -35,7 +35,7 @@ def reWindow(last_window, current_user, player, dealer, action, bet, game):
     else: 
         #tieGame(bet)
         Label(app, text='It a tie!').grid(row=4,column=0)
-
+    removeGameFromList(game.getGameId())
     Button(app, text='Back',command=lambda: view.game_window.blackjackMainWindow(app,current_user)).grid(row=5,column=2)
 
     app.geometry('400x200')

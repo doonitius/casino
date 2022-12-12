@@ -1,14 +1,6 @@
-from model.account import Account, TransactionLog
-from controller.object_controller import getUserList, updateUserList, id_generator, getAccountList, updateTransactionList, getTransactionLogList, updateAccountList
+from model.account import TransactionLog
+from controller.object_controller import id_generator, getAccountList, updateTransactionList, getTransactionLogList, updateAccountList
 
-# def accountGetBalance(user_id):
-#     user_list = getUserList()
-#     current_user = user_list[user_id-1]
-
-#     print(current_user.getUserName(), "current balance: ", current_user.getUserAccount().getBalance())
-#     transaction_log_list = current_user.getUserAccount().getTransactionLog()
-#     for i in transaction_log_list:
-#         print(i.displayTransaction())
 
 def findAccount(user_id):
     account_list = getAccountList()
@@ -73,38 +65,3 @@ def checkBalance(amount, current_user):
     if (balance < float(amount)):
         result = False
     return result
-
-# def accountDeposit(user_id, amount, payment_type):
-#     user_list = getUserList()
-#     current_user = user_list[user_id-1]
-
-#     user_account = current_user.getUserAccount()
-
-#     transaction_log_list = user_account.getTransactionLog()
-#     transaction_id = id_generator(transaction_log_list)
-
-#     user_account.deposit(amount, transaction_id, payment_type)
-
-#     current_user.updateAccount(user_account)
-
-#     user_list[user_id-1] = current_user
-
-#     updateUserList(user_list)
-
-
-# def accountWithdraw(user_id, amount, payment_type):
-#     user_list = getUserList()
-#     current_user = user_list[user_id-1]
-
-#     user_account = current_user.getUserAccount()
-
-#     transaction_log_list = user_account.getTransactionLog()
-#     transaction_id = id_generator(transaction_log_list)
-
-#     user_account.deposit(amount, transaction_id, payment_type)
-
-#     current_user.updateAccount(user_account)
-
-#     user_list[user_id-1] = current_user
-
-#     updateUserList(user_list)

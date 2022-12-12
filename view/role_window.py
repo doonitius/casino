@@ -1,10 +1,11 @@
 from tkinter import *
 from tkinter import ttk
 from controller.user_controller import removeUserFromList
-import view.game_window
 from controller.account_controller import accountGetBalance, accountDeposit, accountWithdraw
-import view.message_box 
 from controller.transaction_controller import showTransactionLog
+import view.game_window
+import view.message_box 
+
 def closeWindow(app):
     app.destroy()
 

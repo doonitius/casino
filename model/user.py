@@ -6,7 +6,6 @@ class User:
         self.__user_id = int(user_id)
         self.__user_name = user_name
         self.__password = password
-        # self.__account = Account()
 
     def getUserId(self):
         return self.__user_id
@@ -22,15 +21,6 @@ class User:
 
     def setPassword(self, password):
         self.__password = password
-
-    # def isHasAccount(self):
-    #     return self.__account.getBalance()
-
-    # def getUserAccount(self):
-    #     return self.__account
-
-    # def updateAccount(self, account):
-    #     self.__account = account
 
     @abstractmethod
     def isAdmin(self):

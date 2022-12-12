@@ -1,5 +1,5 @@
 from model.account import TransactionLog
-from controller.object_controller import getTransactionLogList, getAccountList
+from controller.object_controller import getTransactionLogList
 from controller.account_controller import findAccount
 
 def showTransactionLog(user_id):
