@@ -4,6 +4,9 @@ from model.game import Game  # test
 #from view.role_window import userMenuWindow
 import view.message_box
 from game.rps import playRPS
+from controller.account_controller import accountGetBalance
+from controller.game_controller import getGame
+from game.rps import createRPS
 
 # put in controller 
 def checkInt(value):
@@ -21,30 +24,33 @@ def gameResult(result):
     elif (result == 0): view.message_box.loseGameMes()
     else: view.message_box.drawGameMes()
 
+
+def getBalance(current_user):
+    print("current balance", accountGetBalance(current_user))
+
 # put in controller
-def validateRPS(chosen, bet):
+def validateRPS(chosen, bet, game, current_user):
     check_chosen = checkInt(chosen)
     check_bet = checkInt(bet)
 
     if (check_chosen and check_bet):
-        result = playRPS(int(chosen), int(bet))
+        result = playRPS(game, current_user, int(chosen), int(bet))
         gameResult(result)
     else: 
         view.message_box.inputRPSError()
     
 # Test db
-def create_db_for_rps(): 
-    rps_game = Game('g001', 'rps', 'Rock paper Sissor', 100)
-    return rps_game
+# def create_db_for_rps(): 
+#     rps_game = Game('g001', 'rps', 'Rock paper Sissor', 100)
+#     return rps_game
 
 def closeWindow(app):
     app.destroy()
 
 def rps_main_window(last_window, current_user):
     closeWindow(last_window)
-
-    game_info = create_db_for_rps()
-
+    game_id = createRPS()
+    game = getGame(game_id)
     app = Tk()
     app.title('RPS game @menu')
 
@@ -60,7 +66,8 @@ def rps_main_window(last_window, current_user):
     player_bet.grid(row=3,column=1)
 
     #validateInt should be in controller
-    Button(app, text='Play', command= lambda: validateRPS(player_chosen.get(), player_bet.get())).grid(row=4,column=0)
+    Button(app, text='Play', command= lambda: validateRPS(player_chosen.get(), player_bet.get(), game, current_user)).grid(row=4,column=0)
+    Button(app, text='Balance', command= lambda: getBalance(current_user)).grid(row=5,column=0)
     #Button(app, text='Back',command=lambda: userMenuWindow(app,current_user)).grid(column=2,row=4)
 
     app.geometry('400x200')

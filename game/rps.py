@@ -1,41 +1,37 @@
 from tkinter import *
 from tkinter import ttk
 import random
+from model.game import Game, RPS
+from controller.game_controller import addGameToList
+from controller.account_controller import accountDeposit, accountWithdraw
 
-def playRPS(chosen, bet):
-    #Rock = 1 Paper = 2 Scissor = 3
-    rng = random.randint(1,3)
-    result = 0 #-1=draw 0=lose 1=win
+def createRPS():
+    return addGameToList('RPS', 'Rock Paper Scissor')
 
-    if (chosen == rng):
-        #prize = bet
-        result = -1
-        return result
-    
-    if (chosen == 1):
-        if (rng == 3):
-            #winGame(bet)
-            result = 1
-            print('win', chosen, rng)
-        else:
-            #loseGame(bet)
-            print('lose', chosen, rng)
-    
-    if (chosen == 2):
-        if (rng == 1):
-            #winGame(bet)
-            result = 1
-            print('win', chosen, rng)
-        else:
-            #loseGame(bet)
-            print('lose', chosen, rng)
 
-    if (chosen == 3):
-        if (rng == 2):
-            result = 1
-            #winGame(bet)
-            print('win', chosen, rng)
-        else:
-            #loseGame(bet)
-            print('lose', chosen, rng)
+
+def placeBet(rps, bet):
+    rps.userBet(bet)
+    return rps
+
+def playRPS(rps,current_user, user_choose, user_bet):
+    accountWithdraw(current_user, user_bet, 'Place Bet')
+    rps = placeBet(rps, user_bet)
+    result = rps.play(user_choose)
+    match result:
+        case 0:
+            print("You lose haah")
+            price = rps.lostGame()
+        case -1:
+            print("Damn draw")
+            price = rps.drawGame()
+            accountDeposit(current_user, price, 'Draw RPS')
+        case 1:
+            print("wow you win")
+            price = rps.winGame()
+            accountDeposit(current_user, price, 'Win RPS')
     return result
+
+
+# def playRPS(chosen, bet):
+#     #Rock = 1 Paper = 2 Scissor = 3

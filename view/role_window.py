@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import ttk
 from controller.user_controller import removeUserFromList
+from controller.account_controller import accountGetBalance
 from view.game_window import rps_main_window
 
 def closeWindow(app):
@@ -10,6 +11,8 @@ def userLogOut(app, current_user):
     removeUserFromList(current_user)
     app.destroy()
 
+def getBalance(current_user):
+    print("current balance",accountGetBalance(current_user))
 
 def selectRole(last_window, current_user):
     closeWindow(last_window)
