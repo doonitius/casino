@@ -74,20 +74,74 @@ class Spin(Game):
         self.__possible_multiply = possible_multiply
 
 class ColorRoulette(Game):
-    def __init__(self, game_id, name, desc, money_pool, possible_color):
+    def __init__(self, game_id, name, desc, money_pool):
         Game.__init__(self, game_id, name, desc, money_pool)
-        self.__possible_color = possible_color
 
-    def play(self):
+    def play(self, user_value, choose_number):
+        #value 1=red 2=black 3=even 4=odd 5=number
+        result = 0 #-1=draw 0=lose 1=win
+
+        redNumList = [1,3,5,7,9,12,14,16,18,21,23,25,27,28,30,32,34,36]
+        blackNumList = [2,4,6,8,10,11,13,15,17,19,20,22,24,26,29,31,33,35]
+
+        rng = random.randint(1, 36)
+        in_red = False
+        print("Roulette: " , rng)
+
+        in_red = rng in redNumList
+
+        match user_value:
+            case 1:
+                if in_red: result = 1
+            case 2:
+                if not in_red: result = 1
+            case 3:
+                if rng % 2 == 0: result = 1
+            case 4:
+                if rng % 2 != 0: result = 1
+            case 5:
+                if rng == choose_number: result = 1
+        return result
+
+    def winGame(self):
+        return self.__player_bet * 2
+
+    def lostGame(self):
+        return float(0)
+
+    def drawGame(self):
         pass
+
+    def userBet(self, player_bet):
+        self.__player_bet = float(player_bet)
 
 class HighLow(Game):
     def __init__(self, game_id, name, desc, money_pool):
         Game.__init__(self, game_id, name, desc, money_pool)
         self.__possible_number = int
 
-    def play(self):
+    def play(self, user_value):
+        rng = random.randint(1,12)
+        result = 0
+        #high = 1 low =2
+        match user_value:
+            case 1:
+                if rng > 6 and rng <= 12: result = 1
+            case 2:
+                if rng > 6 and rng <= 12: result = 1
+        return result
+
+    def winGame(self):
+        return self.__player_bet * 2
+
+    def lostGame(self):
+        return float(0)
+
+    def drawGame(self):
         pass
+
+    def userBet(self, player_bet):
+        self.__player_bet = float(player_bet)
 
 class Slot(Game):
     def __init__(self, game_id, name, desc, money_pool, possible_face):

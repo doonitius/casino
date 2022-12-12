@@ -2,11 +2,12 @@ from tkinter import *
 from tkinter import ttk
 import view.role_window
 import view.message_box
-from game.game import playRPS, playHighLow, playRoulette, playBlackjack
-from game.rps import playRPS
+from game.game import playBlackjack
 from controller.account_controller import accountGetBalance
 from controller.game_controller import getGame
-from game.rps import createRPS
+from game.rps import createRPS, playRPS
+from game.highlow import createHighlow, playHighLow
+from game.roulette import createRoulette, playRoulette
 
 # put in controller 
 def checkInt(value):
@@ -44,29 +45,29 @@ def validateRPS(chosen, bet, game, current_user):
         view.message_box.inputError()
 
 # Maybe abtract validate game from bet and choice that player make
-def validateHighLow(value, bet):
+def validateHighLow(value, bet, game, current_user):
     check_bet = checkInt(bet)
 
     if (check_bet):
-        result = playHighLow(value, int(bet))
+        result = playHighLow(game, current_user, value, int(bet))
         gameResult(result)
     else:
         view.message_box.inputError()
 
 # put in controller
-def validateRoulette(value, bet, chosen):
+def validateRoulette(value, bet, chosen, game, current_user):
     check_bet = checkInt(bet)
     check_chosen = checkInt(chosen)
     
     if (check_chosen and chosen == -1):
         if (check_bet):
-            result = playRoulette(value, int(bet), int(chosen))
+            result = playRoulette(game, current_user, value, int(bet), int(chosen))
             gameResult(result)
         else:
             view.message_box.inputError()
     else:
         if (check_bet and check_chosen and (int(chosen) >= 1 and int(chosen) <= 36)):
-            result = playRoulette(value, int(bet), int(chosen))
+            result = playRoulette(game, current_user, value, int(bet), int(chosen))
             gameResult(result)
         else:
             view.message_box.inputError()
@@ -110,6 +111,8 @@ def rpsMainWindow(last_window, current_user):
 
 def highLowMainWindow(last_window, current_user):
     closeWindow(last_window)
+    game_id = createHighlow()
+    game = getGame(game_id)
     app = Tk()
     app.title('High Low Game @menu')
 
@@ -122,8 +125,8 @@ def highLowMainWindow(last_window, current_user):
     player_bet = Entry(app)
     player_bet.grid(row=5,column=1)
 
-    Button(app, text='High', command= lambda: validateHighLow(1,player_bet.get())).grid(row=4,column=0)
-    Button(app, text='Low', command= lambda: validateHighLow(2, player_bet.get())).grid(row=4,column=1)
+    Button(app, text='High', command= lambda: validateHighLow(1,player_bet.get(), game, current_user)).grid(row=4,column=0)
+    Button(app, text='Low', command=lambda: validateHighLow(2, player_bet.get(), game, current_user)).grid(row=4, column=1)
     Button(app, text='Back',command=lambda: view.role_window.userMenuWindow(app,current_user)).grid(row=6,column=0)
 
 
@@ -132,7 +135,8 @@ def highLowMainWindow(last_window, current_user):
 
 def rouletteMainWindow(last_window, current_user):
     closeWindow(last_window)
-
+    game_id = createRoulette()
+    game = getGame(game_id)
     app = Tk()
     app.title('Roulette game @menu')
 
@@ -148,11 +152,11 @@ def rouletteMainWindow(last_window, current_user):
     player_chosen.grid(row=4,column=1)
     player_bet.grid(row=5,column=1)
 
-    Button(app, text='1.Red', command= lambda: validateRoulette(1, player_bet.get(), -1)).grid(row=2,column=0)
-    Button(app, text='2.Black', command= lambda: validateRoulette(2, player_bet.get(), -1)).grid(row=2,column=1)
-    Button(app, text='3.Even', command= lambda: validateRoulette(3, player_bet.get(), -1)).grid(row=3,column=0)
-    Button(app, text='4.Odd', command= lambda: validateRoulette(4, player_bet.get(), -1)).grid(row=3,column=1)
-    Button(app, text='Play with number', command= lambda: validateRoulette(5, player_bet.get(), player_chosen.get())).grid(row=6,column=0)
+    Button(app, text='1.Red', command= lambda: validateRoulette(1, player_bet.get(), -1, game, current_user)).grid(row=2,column=0)
+    Button(app, text='2.Black', command= lambda: validateRoulette(2, player_bet.get(), -1, game, current_user)).grid(row=2,column=1)
+    Button(app, text='3.Even', command= lambda: validateRoulette(3, player_bet.get(), -1, game, current_user)).grid(row=3,column=0)
+    Button(app, text='4.Odd', command= lambda: validateRoulette(4, player_bet.get(), -1, game, current_user)).grid(row=3,column=1)
+    Button(app, text='Play with number', command= lambda: validateRoulette(5, player_bet.get(), player_chosen.get(), game, current_user)).grid(row=6,column=0)
     Button(app, text='Back',command=lambda: view.role_window.userMenuWindow(app,current_user)).grid(column=1,row=6)
 
     app.geometry('400x200')

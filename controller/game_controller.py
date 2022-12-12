@@ -1,4 +1,4 @@
-from model.game import Game, GameBoard, RPS
+from model.game import Game, GameBoard, RPS, HighLow, ColorRoulette
 from controller.object_controller import getGameList, id_generator, updateGameList
 
 def showGameList():
@@ -22,6 +22,10 @@ def addGameToList(game_name, desc):
             newGame = RPS(game_id, game_name, desc, 0)
         case 'HighLow':
             print("creating Highlow")
+            newGame = HighLow(game_id, game_name, desc, 0)
+        case 'Color Roulette':
+            print("creating Color Roulette")
+            newGame = ColorRoulette(game_id, game_name, desc, 0)
 
     game_list.addGameToList(newGame)
     updateGameList(game_list)

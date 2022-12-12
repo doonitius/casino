@@ -4,15 +4,10 @@ import random
 from model.game import Game, RPS
 from controller.game_controller import addGameToList
 from controller.account_controller import accountDeposit, accountWithdraw
+from game.bet_helper import placeBet
 
 def createRPS():
     return addGameToList('RPS', 'Rock Paper Scissor')
-
-
-
-def placeBet(rps, bet):
-    rps.userBet(bet)
-    return rps
 
 def playRPS(rps,current_user, user_choose, user_bet):
     accountWithdraw(current_user, user_bet, 'Place Bet')
@@ -31,7 +26,3 @@ def playRPS(rps,current_user, user_choose, user_bet):
             price = rps.winGame()
             accountDeposit(current_user, price, 'Win RPS')
     return result
-
-
-# def playRPS(chosen, bet):
-#     #Rock = 1 Paper = 2 Scissor = 3

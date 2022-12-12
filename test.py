@@ -2,7 +2,8 @@ from controller.user_controller import addUserToList, showUserList
 from controller.account_controller import accountDeposit, accountGetBalance, accountWithdraw
 from controller.transaction_controller import showTransactionLog
 from controller.game_controller import addGameToList, showGameList, getGame
-from game.rps import createRPS, playRPS, placeBet
+from game.rps import createRPS, playRPS
+from game.highlow import createHighlow, playHighLow
 
 addUserToList('jade', '8888', 0)
 
@@ -35,12 +36,15 @@ game = getGame(game_id)
 
 print(game.getName(), game.getDesc())
 
-game = placeBet(game, 50)
-
 playRPS(game, current_user,  1, 50)
-
 
 for transaction in showTransactionLog(current_user):
     print(transaction.displayTransaction())
 
 print("current balance", accountGetBalance(current_user))
+
+createHighlow()
+
+for game in showGameList():
+    print(game.getGameId(), game.getName(), game.getDesc())
+
