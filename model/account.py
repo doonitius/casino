@@ -38,6 +38,9 @@ class TransactionLog:
     def displayTransaction(self):
         return self.__transaction_id, self.__amount, self.__account_id, self.__transaction_type, self.__date
 
+    def getAccountId(self):
+        return self.__account_id
+
 class Payment:
     def __init__(self, payment_id, account_id):
         self.__payment_id = payment_id

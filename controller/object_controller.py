@@ -1,5 +1,7 @@
+from model.game import GameBoard
+
 user_list = []
-game_list = []
+game_list = GameBoard()
 account_list = []
 transaction_list = []
 

@@ -3,6 +3,10 @@ from tkinter import ttk
 import view.role_window
 import view.message_box
 from game.game import playRPS, playHighLow, playRoulette, playBlackjack
+from game.rps import playRPS
+from controller.account_controller import accountGetBalance
+from controller.game_controller import getGame
+from game.rps import createRPS
 
 # put in controller 
 def checkInt(value):
@@ -21,8 +25,12 @@ def gameResult(result):
     elif (result == 0): view.message_box.loseGameMes()
     else: view.message_box.drawGameMes()
 
+
+def getBalance(current_user):
+    print("current balance", accountGetBalance(current_user))
+
 # put in controller
-def validateRPS(chosen, bet):
+def validateRPS(chosen, bet, game, current_user):
     check_chosen = checkInt(chosen)
     check_bet = checkInt(bet)
 
@@ -30,7 +38,7 @@ def validateRPS(chosen, bet):
         if (int(chosen) < 1 or int(chosen) > 3):
             view.message_box.inputError()
         else:
-            result = playRPS(int(chosen), int(bet))
+            result = playRPS(game, current_user, int(chosen), int(bet))
             gameResult(result)
     else: 
         view.message_box.inputError()
@@ -77,7 +85,8 @@ def closeWindow(app):
 
 def rpsMainWindow(last_window, current_user):
     closeWindow(last_window)
-
+    game_id = createRPS()
+    game = getGame(game_id)
     app = Tk()
     app.title('RPS game @menu')
 
@@ -92,9 +101,9 @@ def rpsMainWindow(last_window, current_user):
     player_chosen.grid(row=2,column=1)
     player_bet.grid(row=3,column=1)
 
-    #validateInt should be in controller
-    Button(app, text='Play', command= lambda: validateRPS(player_chosen.get(), player_bet.get())).grid(row=4,column=0)
+    Button(app, text='Play', command= lambda: validateRPS(player_chosen.get(), player_bet.get(), game, current_user)).grid(row=4,column=0)
     Button(app, text='Back',command=lambda: view.role_window.userMenuWindow(app,current_user)).grid(column=2,row=4)
+    Button(app, text='Balance', command= lambda: getBalance(current_user)).grid(row=5,column=0)
 
     app.geometry('400x200')
     app.mainloop
@@ -192,6 +201,8 @@ def blackjackMainWindow(last_window, current_user):
 
     Button(app, text='Play', command= lambda: validateBlackjack(player_bet.get(), app, current_user)).grid(row=2,column=0)
     Button(app, text='Back',command=lambda: view.role_window.userMenuWindow(app,current_user)).grid(column=1,row=2)
+
+    #Button(app, text='Back',command=lambda: userMenuWindow(app,current_user)).grid(column=2,row=4)
 
     app.geometry('400x200')
     app.mainloop
