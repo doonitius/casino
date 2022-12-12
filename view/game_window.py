@@ -2,7 +2,6 @@ from tkinter import *
 from tkinter import ttk
 import view.role_window
 import view.message_box
-from game.game import playBlackjack
 from controller.account_controller import accountGetBalance, checkBalance
 from controller.game_controller import getGame, removeGameFromList
 from game.rps import createRPS, playRPS
@@ -33,7 +32,7 @@ def gameResult(result):
     elif (result == 0): view.message_box.loseGameMes()
     else: view.message_box.drawGameMes()
 
-
+# Need to have?
 def getBalance(current_user):
     print("current balance", accountGetBalance(current_user))
 
@@ -55,7 +54,7 @@ def validateRPS(chosen, bet, game, current_user):
     else: 
         view.message_box.inputError()
 
-# Maybe abtract validate game from bet and choice that player make
+# Maybe abtract validate game from bet and choice that player make similar to blackjack
 def validateHighLow(value, bet, game, current_user):
     check_bet = checkInt(bet)
 
@@ -69,11 +68,12 @@ def validateHighLow(value, bet, game, current_user):
     else:
         view.message_box.inputError()
 
-# put in controller
+# split validate between bet with number and other option
 def validateRoulette(value, bet, chosen, game, current_user):
     check_bet = checkInt(bet)
     check_chosen = checkInt(chosen)
     
+    #
     if (check_chosen and chosen == -1):
         if (check_bet):
             valid = checkBalance(bet, current_user)
@@ -84,6 +84,7 @@ def validateRoulette(value, bet, chosen, game, current_user):
                 gameResult(result)
         else:
             view.message_box.inputError()
+    #
     else:
         if (check_bet and check_chosen and (int(chosen) >= 1 and int(chosen) <= 36)):
             valid = checkBalance(bet, current_user)
@@ -95,6 +96,7 @@ def validateRoulette(value, bet, chosen, game, current_user):
         else:
             view.message_box.inputError()
 
+# similar to highlow
 def validateBlackjack(bet,app,current_user, game):
     check_bet = checkInt(bet)
 
@@ -131,6 +133,7 @@ def rpsMainWindow(last_window, current_user):
     Button(app, text='Play', command= lambda: validateRPS(player_chosen.get(), player_bet.get(), game, current_user)).grid(row=4,column=0)
     Button(app, text='Back', command=lambda: backToMenu(
         app, current_user, game_id)).grid(column=2, row=4)
+    # Need this button ??
     Button(app, text='Balance', command= lambda: getBalance(current_user)).grid(row=5,column=0)
 
     app.geometry('400x200')

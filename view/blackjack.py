@@ -63,8 +63,6 @@ def playWindow(last_window, current_user, bet, game):
 
     Button(app, text='Hit',command=lambda: reWindow(app, current_user, player_hand, dealer_hand,1, bet, game)).grid(row=3,column=0)
     Button(app, text='Stay',command=lambda: reWindow(app, current_user, player_hand, dealer_hand,2, bet, game)).grid(row=3,column=1)
-    # Button(app, text='Hit',command=lambda: game.game.checkDealer(1, player_hand, dealer_hand)).grid(row=3,column=0)
-    # Button(app, text='Stay',command=lambda: game.game.checkDealer(2, player_hand, dealer_hand)).grid(row=3,column=1)
     Button(app, text='Back',command=lambda: view.game_window.blackjackMainWindow(app,current_user)).grid(row=5,column=2)
 
     app.geometry('400x200')
