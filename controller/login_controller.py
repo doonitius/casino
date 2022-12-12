@@ -34,6 +34,7 @@ def login(username, password):
     validUserName = False
     validPassword = False
     access_grant = False
+    role = 0
     f = open("user.txt", "r")
     for line in f:
         user_info = line.split()
@@ -45,7 +46,7 @@ def login(username, password):
 
         if validUserName and validPassword:
             access_grant = True
-            role = user_info[2]
+            role = int(user_info[2])
             break
     f.close()
-    return access_grant, int(role)
+    return access_grant, role
