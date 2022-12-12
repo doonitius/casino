@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import ttk
 from controller.user_controller import removeUserFromList
-from view.game_window import rps_main_window
+from view.game_window import rpsMainWindow, highLowMainWindow, rouletteMainWindow, spinMainWindow, slotMainWindow, blackjackMainWindow
 
 def closeWindow(app):
     app.destroy()
@@ -45,8 +45,13 @@ def userMenuWindow(last_window, current_user):
     tabControl.pack(expand=1, fill="both")
 
     ttk.Label(tab_play, text='Let play game in Jade Noi 888').grid(column=0,row=0)
-    Button(tab_play, text='RPS',command=lambda: rps_main_window(app,current_user)).grid(column=0,row=1)
-    Button(tab_play, text='Back',command=lambda: selectRole(app,current_user)).grid(column=0,row=3)
+    Button(tab_play, text='RPS',command=lambda: rpsMainWindow(app,current_user)).grid(column=0,row=1)
+    Button(tab_play, text='HighLow',command=lambda: highLowMainWindow(app,current_user)).grid(column=1,row=1)
+    Button(tab_play, text='Roulette',command=lambda: rouletteMainWindow(app,current_user)).grid(column=2,row=1)
+    Button(tab_play, text='Spin',command=lambda: spinMainWindow(app,current_user)).grid(column=0,row=2)
+    Button(tab_play, text='Slot',command=lambda: slotMainWindow(app,current_user)).grid(column=1,row=2)
+    Button(tab_play, text='Blackjack',command=lambda: blackjackMainWindow(app,current_user)).grid(column=2,row=2)
+    Button(tab_play, text='Back',command=lambda: selectRole(app,current_user)).grid(column=0,row=5)
 
     ttk.Label(tab_pay, text='Mange your Payment').grid(column=0,row=1)
     Button(tab_pay, text='Back',command=lambda: selectRole(app,current_user)).grid(column=0,row=3)

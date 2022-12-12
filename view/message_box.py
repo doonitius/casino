@@ -8,7 +8,7 @@ def loginError():
 def loginSuccess(app, current_user):
     selectRole(app,current_user)
 
-def inputRPSError():
+def inputError():
     messagebox.showerror('Input Error', 'Invalid type')
 
 def winGameMes():
