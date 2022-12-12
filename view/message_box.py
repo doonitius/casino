@@ -10,7 +10,6 @@ def balanceMes(current_user):
     balance = accountGetBalance(current_user)
     messagebox.showinfo('Balance', 'Your balance: '+str(balance))
 
-
 def inputError():
     messagebox.showerror('Input Error', 'Invalid type')
 

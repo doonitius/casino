@@ -6,6 +6,8 @@ from controller.transaction_controller import showTransactionLog
 import view.game_window
 import view.message_box 
 
+
+# call from many file should move it to another file
 def closeWindow(app):
     app.destroy()
 
@@ -13,14 +15,17 @@ def userLogOut(app, current_user):
     removeUserFromList(current_user)
     app.destroy()
 
-def getBalance(current_user):
-    print("current balance",accountGetBalance(current_user))
+# No ref
+# def getBalance(current_user):
+#     print("current balance",accountGetBalance(current_user))
 
+# Maybe should move to another file
 def validateMoney(value, action, current_user):
     check = view.game_window.checkInt(value)
     if (not check):
         view.message_box.inputError()
     else: 
+        # make this another function then call it
         balance = accountGetBalance(current_user)
         match action:
             case 1:
@@ -34,7 +39,7 @@ def validateMoney(value, action, current_user):
                     view.message_box.withdrawMes(balance, value)
 
     
-
+# Remove admin
 # def selectRole(last_window, current_user):
 #     closeWindow(last_window)
 #     app = Tk()
@@ -90,7 +95,6 @@ def userMenuWindow(last_window, current_user):
     Button(tab_play, text='Roulette',command=lambda: view.game_window.rouletteMainWindow(app,current_user)).grid(column=0,row=2)
     Button(tab_play, text='Blackjack',command=lambda: view.game_window.blackjackMainWindow(app,current_user)).grid(column=1,row=2)
     Button(tab_play, text='Logout', command=lambda: userLogOut(app, current_user)).grid(column=0,row=5)
-    #Button(tab_play, text='Back',command=lambda: selectRole(app,current_user)).grid(column=0,row=5)
 
     ttk.Label(tab_pay, text='Mange your Payment').grid(column=0,row=1)
     ttk.Label(tab_pay, text='View your balance').grid(column=0,row=2)
@@ -101,7 +105,6 @@ def userMenuWindow(last_window, current_user):
     Button(tab_pay, text='View', command=lambda: view.message_box.balanceMes(current_user)).grid(column=1,row=2)
     Button(tab_pay, text='Transaction', command=lambda: viewTransaction(current_user)).grid(column=2,row=2)
     Button(tab_pay, text='Logout', command=lambda: userLogOut(app, current_user)).grid(column=0,row=5)
-    #Button(tab_pay, text='Back',command=lambda: selectRole(app,current_user)).grid(column=0,row=5)
 
     deposit_money = ttk.Entry(tab_pay)
     withdraw_money = ttk.Entry(tab_pay)
@@ -112,6 +115,7 @@ def userMenuWindow(last_window, current_user):
     app.geometry("500x500")
     app.mainloop()
 
+# Remove admin
 # def adminMenuWindow(last_window, current_user):
 #     closeWindow(last_window)
 
