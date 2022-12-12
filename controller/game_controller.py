@@ -1,4 +1,4 @@
-from model.game import Game, GameBoard, RPS, HighLow, ColorRoulette
+from model.game import Game, GameBoard, RPS, HighLow, ColorRoulette, BlackJack
 from controller.object_controller import getGameList, id_generator, updateGameList
 
 def showGameList():
@@ -26,8 +26,19 @@ def addGameToList(game_name, desc):
         case 'Color Roulette':
             print("creating Color Roulette")
             newGame = ColorRoulette(game_id, game_name, desc, 0)
+        case 'Black Jack':
+            print("creating Black Jack")
+            newGame = BlackJack(game_id, game_name, desc, 0)
 
     game_list.addGameToList(newGame)
     updateGameList(game_list)
     print("added game successfully")
     return game_id
+
+def removeGameFromList(game_id):
+    game_list = getGameList()
+    current_game = game_list.getGameList().pop(game_id-1)
+    name = current_game.getName()
+    del current_game
+    updateGameList(game_list)
+    print(name, "closed")

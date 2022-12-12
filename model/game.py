@@ -42,6 +42,9 @@ class Game:
     def setMoneyPool(self, money_pool):
         self.__money_pool = money_pool
 
+    def __del__(self):
+        print("game closed")
+
     @abstractmethod
     def winGame(self):
         pass
@@ -188,20 +191,62 @@ class RPS(Game):
         self.__player_bet = float(player_bet)
 
 class BlackJack(Game):
-    def __init__(self,  game_id, name, desc, money_pool, dealerHand, playerHand, winCondition):
-        Game.__init__(self, dealerHand, playerHand, winCondition)
-        self.__dealerHand =dealerHand
-        self.__playerHand =playerHand
-        self.__winCondition = winCondition
+    def __init__(self,  game_id, name, desc, money_pool):
+        Game.__init__(self,  game_id, name, desc, money_pool)
+        self.__player_hand = []
+        self.__dealer_hand = []
 
     def play(self):
-        pass
+        for card in range(0,2):
+            self.__player_hand.append(random.randint(1,10))
+            self.__dealer_hand.append(random.randint(1,10))
+        print(self.__player_hand)
+        print(self.__dealer_hand)
+        return self.__player_hand, self.__dealer_hand
+
+    def checkWinCon(self):
+        self.__sum_player_hand = sum(self.__player_hand)
+        self.__sum_dealer_hand = sum(self.__dealer_hand)
+        #-1 = draw, 0 = lost, 1 = win
+        if self.__sum_dealer_hand > 21 and self.__sum_player_hand <= 21: return 1
+
+        if self.__sum_dealer_hand <= 21 and self.__sum_player_hand > 21: return 0
+
+        if self.__sum_dealer_hand > 21 and self.__sum_player_hand > 21: return -1
+
+        if self.__sum_dealer_hand < self.__sum_player_hand: return 1
+
+        if self.__sum_dealer_hand > self.__sum_player_hand: return 0
+
+        if self.__sum_dealer_hand == self.__sum_player_hand: return -1
+
+    def checkDealer(self, action):
+        
+        if sum(self.__dealer_hand) < 17: self.__dealer_hand.append(random.randint(1,10))
+        else: self.__dealer_hand.append(0)
+
+        if action == 1: self.__player_hand.append(random.randint(1,10))
+        else: self.__player_hand.append(0)
+
+        return self.__player_hand, self.__dealer_hand, self.checkWinCon()
 
     def hit():
         pass
 
     def stay():
         pass
+
+    def winGame(self):
+        return self.__player_bet * 2
+
+    def lostGame(self):
+        return float(0)
+
+    def drawGame(self):
+        return self.__player_bet
+
+    def userBet(self, player_bet):
+        self.__player_bet = float(player_bet)
 
 class PlayGame(Game):
     def playGame(self):

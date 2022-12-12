@@ -4,10 +4,12 @@ import view.role_window
 import view.message_box
 from game.game import playBlackjack
 from controller.account_controller import accountGetBalance
-from controller.game_controller import getGame
+from controller.game_controller import getGame, removeGameFromList
 from game.rps import createRPS, playRPS
 from game.highlow import createHighlow, playHighLow
 from game.roulette import createRoulette, playRoulette
+from game.blackjack import createBlackJack, playBlackjack
+from view.blackjack import playWindow
 
 # put in controller 
 def checkInt(value):
@@ -19,6 +21,11 @@ def checkInt(value):
     else:
         # print("value is", int_player_chosen)
         return True
+
+def backToMenu(app, current_user, game_id):
+    removeGameFromList(game_id)
+    view.role_window.userMenuWindow(app, current_user)
+
 
 # put in controller
 def gameResult(result):
@@ -72,12 +79,11 @@ def validateRoulette(value, bet, chosen, game, current_user):
         else:
             view.message_box.inputError()
 
-def validateBlackjack(bet,app,current_user):
+def validateBlackjack(bet,app,current_user, game):
     check_bet = checkInt(bet)
 
     if (check_bet):
-        result = playBlackjack(int(bet), app, current_user)
-        #gameResult(result)
+        playWindow(app, current_user, float(bet), game)
     else:
         view.message_box.inputError()
 
@@ -103,7 +109,8 @@ def rpsMainWindow(last_window, current_user):
     player_bet.grid(row=3,column=1)
 
     Button(app, text='Play', command= lambda: validateRPS(player_chosen.get(), player_bet.get(), game, current_user)).grid(row=4,column=0)
-    Button(app, text='Back',command=lambda: view.role_window.userMenuWindow(app,current_user)).grid(column=2,row=4)
+    Button(app, text='Back', command=lambda: backToMenu(
+        app, current_user, game_id)).grid(column=2, row=4)
     Button(app, text='Balance', command= lambda: getBalance(current_user)).grid(row=5,column=0)
 
     app.geometry('400x200')
@@ -127,7 +134,8 @@ def highLowMainWindow(last_window, current_user):
 
     Button(app, text='High', command= lambda: validateHighLow(1,player_bet.get(), game, current_user)).grid(row=4,column=0)
     Button(app, text='Low', command=lambda: validateHighLow(2, player_bet.get(), game, current_user)).grid(row=4, column=1)
-    Button(app, text='Back',command=lambda: view.role_window.userMenuWindow(app,current_user)).grid(row=6,column=0)
+    Button(app, text='Back', command=lambda: backToMenu(
+        app, current_user, game_id)).grid(row=6, column=0)
 
 
     app.geometry("400x200")
@@ -157,7 +165,8 @@ def rouletteMainWindow(last_window, current_user):
     Button(app, text='3.Even', command= lambda: validateRoulette(3, player_bet.get(), -1, game, current_user)).grid(row=3,column=0)
     Button(app, text='4.Odd', command= lambda: validateRoulette(4, player_bet.get(), -1, game, current_user)).grid(row=3,column=1)
     Button(app, text='Play with number', command= lambda: validateRoulette(5, player_bet.get(), player_chosen.get(), game, current_user)).grid(row=6,column=0)
-    Button(app, text='Back',command=lambda: view.role_window.userMenuWindow(app,current_user)).grid(column=1,row=6)
+    Button(app, text='Back', command=lambda: backToMenu(
+        app, current_user, game_id)).grid(column=1, row=6)
 
     app.geometry('400x200')
     app.mainloop
@@ -171,7 +180,8 @@ def spinMainWindow(last_window, current_user):
     Label(app, text='Welcome to Spin game').grid(row=0,column=0)
 
     #Button(app, text='Play', command= lambda: validateRPS(player_chosen.get(), player_bet.get())).grid(row=4,column=0)
-    Button(app, text='Back',command=lambda: view.role_window.userMenuWindow(app,current_user)).grid(column=2,row=4)
+    Button(app, text='Back', command=lambda: backToMenu(
+        app, current_user)).grid(column=2, row=4)
 
     app.geometry('400x200')
     app.mainloop
@@ -185,14 +195,16 @@ def slotMainWindow(last_window, current_user):
     Label(app, text='Welcome to Slot game').grid(row=0,column=0)
 
     #Button(app, text='Play', command= lambda: validateRPS(player_chosen.get(), player_bet.get())).grid(row=4,column=0)
-    Button(app, text='Back',command=lambda: view.role_window.userMenuWindow(app,current_user)).grid(column=2,row=4)
+    Button(app, text='Back', command=lambda: backToMenu(
+        app, current_user)).grid(column=2, row=4)
 
     app.geometry('400x200')
     app.mainloop
 
 def blackjackMainWindow(last_window, current_user):
     closeWindow(last_window)
-
+    game_id = createBlackJack()
+    game = getGame(game_id)
     app = Tk()
     app.title('Blackjack game @menu')
 
@@ -203,8 +215,9 @@ def blackjackMainWindow(last_window, current_user):
 
     player_bet.grid(row=1,column=1)
 
-    Button(app, text='Play', command= lambda: validateBlackjack(player_bet.get(), app, current_user)).grid(row=2,column=0)
-    Button(app, text='Back',command=lambda: view.role_window.userMenuWindow(app,current_user)).grid(column=1,row=2)
+    Button(app, text='Play', command= lambda: validateBlackjack(player_bet.get(), app, current_user, game)).grid(row=2,column=0)
+    Button(app, text='Back', command=lambda: backToMenu(
+        app, current_user, game_id)).grid(column=1, row=2)
 
     #Button(app, text='Back',command=lambda: userMenuWindow(app,current_user)).grid(column=2,row=4)
 

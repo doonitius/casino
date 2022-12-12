@@ -4,7 +4,7 @@ from controller.user_controller import removeUserFromList
 import view.game_window
 from controller.account_controller import accountGetBalance, accountDeposit, accountWithdraw
 import view.message_box 
-
+from controller.transaction_controller import showTransactionLog
 def closeWindow(app):
     app.destroy()
 
@@ -47,6 +47,22 @@ def validateMoney(value, action, current_user):
 #     app.geometry("400x200")
 #     app.mainloop()
 
+def viewTransaction(current_user):
+    app = Tk()
+    app.title("Transaction")
+
+    transaction_list = showTransactionLog(current_user)
+    i = 0
+    for transaction in transaction_list:
+        print(transaction.displayTransaction())
+        label = Label(app, text=transaction.displayTransaction())
+        label.grid(row=i, column=1)
+        i += 1
+    app.geometry("300x300")
+    app.mainloop()
+
+
+
 def userMenuWindow(last_window, current_user):
     closeWindow(last_window)
 
@@ -78,6 +94,7 @@ def userMenuWindow(last_window, current_user):
     ttk.Button(tab_pay, text='Deposit',command=lambda: validateMoney(deposit_money.get(),1,current_user)).grid(column=2,row=3)
     ttk.Button(tab_pay, text='Withdraw',command=lambda: validateMoney(withdraw_money.get(),2,current_user)).grid(column=2,row=4)
     Button(tab_pay, text='View', command=lambda: view.message_box.balanceMes(current_user)).grid(column=1,row=2)
+    Button(tab_pay, text='Transaction', command=lambda: viewTransaction(current_user)).grid(column=2,row=2)
     Button(tab_pay, text='Logout', command=lambda: userLogOut(app, current_user)).grid(column=0,row=5)
     #Button(tab_pay, text='Back',command=lambda: selectRole(app,current_user)).grid(column=0,row=5)
 
@@ -87,7 +104,7 @@ def userMenuWindow(last_window, current_user):
     deposit_money.grid(column=1,row=3)
     withdraw_money.grid(column=1,row=4)
 
-    app.geometry("300x300")
+    app.geometry("500x500")
     app.mainloop()
 
 # def adminMenuWindow(last_window, current_user):
