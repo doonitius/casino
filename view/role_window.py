@@ -4,6 +4,7 @@ from controller.user_controller import removeUserFromList
 from view.game_window import rpsMainWindow, highLowMainWindow, rouletteMainWindow, spinMainWindow, slotMainWindow, blackjackMainWindow
 from controller.account_controller import accountGetBalance
 from view.game_window import rpsMainWindow
+import view.message_box 
 
 def closeWindow(app):
     app.destroy()
@@ -58,7 +59,15 @@ def userMenuWindow(last_window, current_user):
     Button(tab_play, text='Back',command=lambda: selectRole(app,current_user)).grid(column=0,row=5)
 
     ttk.Label(tab_pay, text='Mange your Payment').grid(column=0,row=1)
-    Button(tab_pay, text='Back',command=lambda: selectRole(app,current_user)).grid(column=0,row=3)
+    ttk.Label(tab_pay, text='View your balance').grid(column=0,row=2)
+    ttk.Label(tab_pay, text='Deposit money:').grid(column=0,row=3)
+    ttk.Label(tab_pay, text='Withdraw money:').grid(column=0,row=4)
+    #Button(app, text='Deposit',command=lambda: view.role_window.userMenuWindow(app,current_user)).grid(column=2,row=3)
+    Button(tab_pay, text='View', command=lambda: view.message_box.balanceMes(current_user)).grid(column=1,row=2)
+    Button(tab_pay, text='Back',command=lambda: selectRole(app,current_user)).grid(column=0,row=5)
+
+    deposit_money = ttk.Entry(tab_pay).grid(column=1,row=3)
+    withdraw_money = ttk.Entry(tab_pay).grid(column=1,row=4)
 
     app.geometry("300x300")
     app.mainloop()

@@ -101,7 +101,7 @@ def playRoulette(value, bet, chosen):
     return result
 
 def playBlackjack(bet, app, current_user):
-    playWindow(app, current_user)
+    playWindow(app, current_user, bet)
 
 def beginGame():
     player_hand = []
@@ -117,3 +117,61 @@ def beginGame():
 
 def randomNumberForBlackjack():
     return random.randint(1,10)
+
+def getValue(hand):
+    value = 0
+
+    for i in hand:
+        value = int(i) + value
+    return value
+
+def checkDealer(action,player_hand, dealer_hand):
+    dealer_value = 0
+
+    dealer_value = getValue(dealer_hand)
+    if (dealer_value < 17):
+        dealer_card3 = randomNumberForBlackjack()
+        dealer_hand.append(dealer_card3)
+    else:
+        dealer_hand.append(0)
+
+    if (action == 1): 
+        player_card3 = randomNumberForBlackjack()
+        player_hand.append(player_card3)
+    else:
+        player_hand.append(0)
+    result = checkWinCon(player_hand, dealer_hand)
+    return player_hand, dealer_hand, result
+
+def checkWinCon(player_hand, dealer_hand):
+    player_value = getValue(player_hand)
+    dealer_value = getValue(dealer_hand)
+    result = 0 #-1=draw 0=lose 1=win
+
+    if (dealer_value > 21 and player_value <= 21):
+        result = 1 #remove after test finish
+        print(player_value, dealer_value, result)
+        return 1
+    if (player_value > 21 and dealer_value <= 21):
+        result = 0
+        print(player_value, dealer_value, result)
+        return 0
+    if (dealer_value > 21 and player_value > 21):
+        result = -1
+        print(player_value, dealer_value, result)
+        return -1
+    if (player_value > dealer_value):
+        result = 1
+        print(player_value, dealer_value, result)
+        return 1
+    if (dealer_value > player_value):
+        result = 0
+        print(player_value, dealer_value, result)
+        return 0
+    if (dealer_value == player_value):
+        result = -1
+        print(player_value, dealer_value, result)
+        return -1
+
+
+    
