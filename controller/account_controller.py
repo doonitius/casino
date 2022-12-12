@@ -67,6 +67,13 @@ def accountWithdraw(user_id, amount, transaction_type):
     except:
         print("Error")
 
+def checkBalance(amount, current_user):
+    balance = accountGetBalance(current_user)
+    result = True
+    if (balance < float(amount)):
+        result = False
+    return result
+
 # def accountDeposit(user_id, amount, payment_type):
 #     user_list = getUserList()
 #     current_user = user_list[user_id-1]

@@ -20,11 +20,17 @@ def validateMoney(value, action, current_user):
     if (not check):
         view.message_box.inputError()
     else: 
+        balance = accountGetBalance(current_user)
         match action:
             case 1:
                 accountDeposit(current_user, float(value), 'Deposit money')
+                view.message_box.depositMes(balance, value)
             case 2:
-                accountWithdraw(current_user, float(value), 'Withdraw money')
+                if (balance < float(value)):
+                    view.message_box.lowAmountError(balance, value)
+                else:
+                    accountWithdraw(current_user, float(value), 'Withdraw money')
+                    view.message_box.withdrawMes(balance, value)
 
     
 
@@ -80,10 +86,8 @@ def userMenuWindow(last_window, current_user):
     ttk.Label(tab_play, text='Let play game in Jade Noi 888').grid(column=0,row=0)
     Button(tab_play, text='RPS',command=lambda: view.game_window.rpsMainWindow(app,current_user)).grid(column=0,row=1)
     Button(tab_play, text='HighLow',command=lambda: view.game_window.highLowMainWindow(app,current_user)).grid(column=1,row=1)
-    Button(tab_play, text='Roulette',command=lambda: view.game_window.rouletteMainWindow(app,current_user)).grid(column=2,row=1)
-    Button(tab_play, text='Spin',command=lambda: view.game_window.spinMainWindow(app,current_user)).grid(column=0,row=2)
-    Button(tab_play, text='Slot',command=lambda: view.game_window.slotMainWindow(app,current_user)).grid(column=1,row=2)
-    Button(tab_play, text='Blackjack',command=lambda: view.game_window.blackjackMainWindow(app,current_user)).grid(column=2,row=2)
+    Button(tab_play, text='Roulette',command=lambda: view.game_window.rouletteMainWindow(app,current_user)).grid(column=0,row=2)
+    Button(tab_play, text='Blackjack',command=lambda: view.game_window.blackjackMainWindow(app,current_user)).grid(column=1,row=2)
     Button(tab_play, text='Logout', command=lambda: userLogOut(app, current_user)).grid(column=0,row=5)
     #Button(tab_play, text='Back',command=lambda: selectRole(app,current_user)).grid(column=0,row=5)
 

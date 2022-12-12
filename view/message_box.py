@@ -22,3 +22,14 @@ def loseGameMes():
 
 def drawGameMes():
     messagebox.showinfo('Result', 'It a tie')
+
+def depositMes(balance, deposit_amount):
+    total = float(balance) + float(deposit_amount)
+    messagebox.showinfo('Deposit', 'deposit ' +str(deposit_amount)+ ' Total: ' +str(total))
+
+def withdrawMes(balance, withdraw_amount):
+    left = float(balance) - float(withdraw_amount)
+    messagebox.showinfo('Withdraw', 'withdraw ' +str(withdraw_amount)+ ' Balance: ' +str(left))
+
+def lowAmountError(balance, withdraw_amount):
+    messagebox.showerror('Input Error', 'Balance ' +str(balance)+ ' lower than action ' + str(withdraw_amount))

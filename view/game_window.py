@@ -3,7 +3,7 @@ from tkinter import ttk
 import view.role_window
 import view.message_box
 from game.game import playBlackjack
-from controller.account_controller import accountGetBalance
+from controller.account_controller import accountGetBalance, checkBalance
 from controller.game_controller import getGame, removeGameFromList
 from game.rps import createRPS, playRPS
 from game.highlow import createHighlow, playHighLow
@@ -46,8 +46,12 @@ def validateRPS(chosen, bet, game, current_user):
         if (int(chosen) < 1 or int(chosen) > 3):
             view.message_box.inputError()
         else:
-            result = playRPS(game, current_user, int(chosen), int(bet))
-            gameResult(result)
+            valid = checkBalance(bet, current_user)
+            if (not valid):
+                view.message_box.lowAmountError(accountGetBalance(current_user), bet)
+            else:
+                result = playRPS(game, current_user, int(chosen), int(bet))
+                gameResult(result)
     else: 
         view.message_box.inputError()
 
@@ -56,8 +60,12 @@ def validateHighLow(value, bet, game, current_user):
     check_bet = checkInt(bet)
 
     if (check_bet):
-        result = playHighLow(game, current_user, value, int(bet))
-        gameResult(result)
+        valid = checkBalance(bet, current_user)
+        if (not valid):
+            view.message_box.lowAmountError(accountGetBalance(current_user), bet)
+        else:
+            result = playHighLow(game, current_user, value, int(bet))
+            gameResult(result)
     else:
         view.message_box.inputError()
 
@@ -68,14 +76,22 @@ def validateRoulette(value, bet, chosen, game, current_user):
     
     if (check_chosen and chosen == -1):
         if (check_bet):
-            result = playRoulette(game, current_user, value, int(bet), int(chosen))
-            gameResult(result)
+            valid = checkBalance(bet, current_user)
+            if (not valid):
+                view.message_box.lowAmountError(accountGetBalance(current_user), bet)
+            else:
+                result = playRoulette(game, current_user, value, int(bet), int(chosen))
+                gameResult(result)
         else:
             view.message_box.inputError()
     else:
         if (check_bet and check_chosen and (int(chosen) >= 1 and int(chosen) <= 36)):
-            result = playRoulette(game, current_user, value, int(bet), int(chosen))
-            gameResult(result)
+            valid = checkBalance(bet, current_user)
+            if (not valid):
+                view.message_box.lowAmountError(accountGetBalance(current_user), bet)
+            else:
+                result = playRoulette(game, current_user, value, int(bet), int(chosen))
+                gameResult(result)
         else:
             view.message_box.inputError()
 
@@ -83,7 +99,11 @@ def validateBlackjack(bet,app,current_user, game):
     check_bet = checkInt(bet)
 
     if (check_bet):
-        playWindow(app, current_user, float(bet), game)
+        valid = checkBalance(bet, current_user)
+        if (not valid):
+            view.message_box.lowAmountError(accountGetBalance(current_user), bet)
+        else:
+            playWindow(app, current_user, float(bet), game)
     else:
         view.message_box.inputError()
 
@@ -167,36 +187,6 @@ def rouletteMainWindow(last_window, current_user):
     Button(app, text='Play with number', command= lambda: validateRoulette(5, player_bet.get(), player_chosen.get(), game, current_user)).grid(row=6,column=0)
     Button(app, text='Back', command=lambda: backToMenu(
         app, current_user, game_id)).grid(column=1, row=6)
-
-    app.geometry('400x200')
-    app.mainloop
-
-def spinMainWindow(last_window, current_user):
-    closeWindow(last_window)
-
-    app = Tk()
-    app.title('Spin game @menu')
-
-    Label(app, text='Welcome to Spin game').grid(row=0,column=0)
-
-    #Button(app, text='Play', command= lambda: validateRPS(player_chosen.get(), player_bet.get())).grid(row=4,column=0)
-    Button(app, text='Back', command=lambda: backToMenu(
-        app, current_user)).grid(column=2, row=4)
-
-    app.geometry('400x200')
-    app.mainloop
-
-def slotMainWindow(last_window, current_user):
-    closeWindow(last_window)
-
-    app = Tk()
-    app.title('Slot game @menu')
-
-    Label(app, text='Welcome to Slot game').grid(row=0,column=0)
-
-    #Button(app, text='Play', command= lambda: validateRPS(player_chosen.get(), player_bet.get())).grid(row=4,column=0)
-    Button(app, text='Back', command=lambda: backToMenu(
-        app, current_user)).grid(column=2, row=4)
 
     app.geometry('400x200')
     app.mainloop
