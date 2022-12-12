@@ -116,7 +116,11 @@ def beginGame():
     return player_hand, dealer_hand
 
 def randomNumberForBlackjack():
-    return random.randint(1,10)
+    num = random.randint(1,13)
+    if (num == 11 or num == 12 or num == 13):
+        num = 10
+        
+    return num
 
 def getValue(hand):
     value = 0

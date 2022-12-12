@@ -1,6 +1,6 @@
 import os
 from view.message_box import loginError
-from view.role_window import selectRole
+from view.role_window import userMenuWindow
 from controller.user_controller import addUserToList, showUserList
 
 path = os.path.realpath(__file__)
@@ -17,7 +17,7 @@ def validateUser(username, password, app):
     if isValid:
         current_user = addUserToList(username, password, user_role)
         showUserList()
-        selectRole(app,current_user)
+        userMenuWindow(app,current_user)
     else:
         loginError()
 
