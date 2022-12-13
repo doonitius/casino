@@ -10,7 +10,6 @@ from game.roulette import createRoulette, playRoulette
 from game.blackjack import createBlackJack, playBlackjack
 from view.blackjack import playWindow
 
-# put in controller 
 def checkInt(value):
     try:
         int_player_chosen = int(value)
@@ -25,18 +24,14 @@ def backToMenu(app, current_user, game_id):
     removeGameFromList(game_id)
     view.role_window.userMenuWindow(app, current_user)
 
-
-# put in controller
 def gameResult(result):
     if (result == 1): view.message_box.winGameMes()
     elif (result == 0): view.message_box.loseGameMes()
     else: view.message_box.drawGameMes()
 
-# Need to have?
 def getBalance(current_user):
     print("current balance", accountGetBalance(current_user))
 
-# put in controller
 def validateRPS(chosen, bet, game, current_user):
     check_chosen = checkInt(chosen)
     check_bet = checkInt(bet)
@@ -54,7 +49,6 @@ def validateRPS(chosen, bet, game, current_user):
     else: 
         view.message_box.inputError()
 
-# Maybe abtract validate game from bet and choice that player make similar to blackjack
 def validateHighLow(value, bet, game, current_user):
     check_bet = checkInt(bet)
 
@@ -68,12 +62,10 @@ def validateHighLow(value, bet, game, current_user):
     else:
         view.message_box.inputError()
 
-# split validate between bet with number and other option
 def validateRoulette(value, bet, chosen, game, current_user):
     check_bet = checkInt(bet)
     check_chosen = checkInt(chosen)
     
-    #
     if (check_chosen and chosen == -1):
         if (check_bet):
             valid = checkBalance(bet, current_user)
@@ -84,7 +76,6 @@ def validateRoulette(value, bet, chosen, game, current_user):
                 gameResult(result)
         else:
             view.message_box.inputError()
-    #
     else:
         if (check_bet and check_chosen and (int(chosen) >= 1 and int(chosen) <= 36)):
             valid = checkBalance(bet, current_user)
@@ -96,7 +87,6 @@ def validateRoulette(value, bet, chosen, game, current_user):
         else:
             view.message_box.inputError()
 
-# similar to highlow
 def validateBlackjack(bet,app,current_user, game):
     check_bet = checkInt(bet)
 
@@ -211,8 +201,6 @@ def blackjackMainWindow(last_window, current_user):
     Button(app, text='Play', command= lambda: validateBlackjack(player_bet.get(), app, current_user, game)).grid(row=2,column=0)
     Button(app, text='Back', command=lambda: backToMenu(
         app, current_user, game_id)).grid(column=1, row=2)
-
-    #Button(app, text='Back',command=lambda: userMenuWindow(app,current_user)).grid(column=2,row=4)
 
     app.geometry('400x200')
     app.mainloop
