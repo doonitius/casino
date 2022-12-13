@@ -25,7 +25,7 @@ def addUserToList(user_name, password):
 def showUserList():
     user_list = getUserList()
     for i in user_list:
-        print(i.getUserId(), i.getUserName(), "Is admin?", i.isAdmin())
+        print(i.getUserId(), i.getUserName())
 
 def removeUserFromList(user_id):
     user_list = getUserList()
