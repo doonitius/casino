@@ -13,6 +13,8 @@ current_user =1
 game_id = 1
 showUserList()
 
+print("hellow")
+
 print(accountGetBalance(current_user))
 
 accountDeposit(current_user, 100, 'Deposit')
