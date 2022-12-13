@@ -6,10 +6,10 @@ def loginWindowMain():
     app = Tk()
     app.title('Casino Jade Noi 888 @Login')
 
-    select_user = Label(text="เจ้าชื่อหยัง?",font=20)
+    select_user = Label(text="Jade Noi 888",font=20)
     select_user.grid(row=0,column=1)
 
-    Label(app, text= "User Name").grid(row=1)
+    Label(app, text= "Username").grid(row=1)
     Label(app, text = "Password").grid(row=2)
 
     user_name = Entry(app)

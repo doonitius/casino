@@ -38,27 +38,6 @@ def validateMoney(value, action, current_user):
                     accountWithdraw(current_user, float(value), 'Withdraw money')
                     view.message_box.withdrawMes(balance, value)
 
-    
-# Remove admin
-# def selectRole(last_window, current_user):
-#     closeWindow(last_window)
-#     app = Tk()
-#     app.title("Select role @Menu")
-
-#     user_button = Button(app, text='User',
-#                         command=lambda: userMenuWindow(app, current_user))
-#     admin_button = Button(app, text='Admin',
-#                         command=lambda: adminMenuWindow(app, current_user))
-#     logout_button = Button(app, text='Logout',
-#                         command=lambda: userLogOut(app, current_user))
-    
-#     user_button.grid(row=0,column=0)
-#     admin_button.grid(row=0,column=1)
-#     logout_button.grid(row=0,column=2)
-
-#     app.geometry("400x200")
-#     app.mainloop()
-
 def viewTransaction(current_user):
     app = Tk()
     app.title("Transaction")
@@ -89,11 +68,11 @@ def userMenuWindow(last_window, current_user):
     tabControl.add(tab_pay, text='Account')
     tabControl.pack(expand=1, fill="both")
 
-    ttk.Label(tab_play, text='Let play game in Jade Noi 888').grid(column=0,row=0)
+    ttk.Label(tab_play, text='Games in Jade Noi 888').grid(column=0,row=0)
     Button(tab_play, text='RPS',command=lambda: view.game_window.rpsMainWindow(app,current_user)).grid(column=0,row=1)
-    Button(tab_play, text='HighLow',command=lambda: view.game_window.highLowMainWindow(app,current_user)).grid(column=1,row=1)
-    Button(tab_play, text='Roulette',command=lambda: view.game_window.rouletteMainWindow(app,current_user)).grid(column=0,row=2)
-    Button(tab_play, text='Blackjack',command=lambda: view.game_window.blackjackMainWindow(app,current_user)).grid(column=1,row=2)
+    Button(tab_play, text='HighLow',command=lambda: view.game_window.highLowMainWindow(app,current_user)).grid(column=0,row=2)
+    Button(tab_play, text='Roulette',command=lambda: view.game_window.rouletteMainWindow(app,current_user)).grid(column=0,row=3)
+    Button(tab_play, text='Blackjack',command=lambda: view.game_window.blackjackMainWindow(app,current_user)).grid(column=0,row=4)
     Button(tab_play, text='Logout', command=lambda: userLogOut(app, current_user)).grid(column=0,row=5)
 
     ttk.Label(tab_pay, text='Mange your Payment').grid(column=0,row=1)
@@ -103,7 +82,7 @@ def userMenuWindow(last_window, current_user):
     ttk.Button(tab_pay, text='Deposit',command=lambda: validateMoney(deposit_money.get(),1,current_user)).grid(column=2,row=3)
     ttk.Button(tab_pay, text='Withdraw',command=lambda: validateMoney(withdraw_money.get(),2,current_user)).grid(column=2,row=4)
     Button(tab_pay, text='View', command=lambda: view.message_box.balanceMes(current_user)).grid(column=1,row=2)
-    Button(tab_pay, text='Transaction', command=lambda: viewTransaction(current_user)).grid(column=2,row=2)
+    Button(tab_pay, text='History', command=lambda: viewTransaction(current_user)).grid(column=2,row=2)
     Button(tab_pay, text='Logout', command=lambda: userLogOut(app, current_user)).grid(column=0,row=5)
 
     deposit_money = ttk.Entry(tab_pay)
@@ -114,28 +93,3 @@ def userMenuWindow(last_window, current_user):
 
     app.geometry("500x500")
     app.mainloop()
-
-# Remove admin
-# def adminMenuWindow(last_window, current_user):
-#     closeWindow(last_window)
-
-#     app = Tk()
-#     app.title("Admin menu @Menu")
-#     tabControl = ttk.Notebook(app)
-
-#     tab_add = ttk.Frame(tabControl)
-#     tab_select = ttk.Frame(tabControl)
-
-#     tabControl.add(tab_add, text='Add game')
-#     tabControl.add(tab_select, text='Select game')
-#     tabControl.pack(expand=1, fill='both')
-
-#     ttk.Label(tab_add, text='Add game in to Jade noi 888').grid(column=0,row=0)
-#     #Button(tab_add, text='Back',command=lambda: selectRole(app,current_user)).grid(column=0,row=3)
-
-#     ttk.Label(tab_select, text='Select game to make action').grid(column=0,row=0)
-    
-#     #Button(tab_select, text='Back',command=lambda: selectRole(app,current_user)).grid(column=0,row=3)
-
-#     app.geometry("400x200")
-#     app.mainloop()
