@@ -103,14 +103,14 @@ def userMenuWindow(last_window, current_user):
     Button(tab_play, text='Blackjack',bg='#25AEF3',height=1, width=10,command=lambda: view.game_window.blackjackMainWindow(app,current_user)).grid(column=0,row=4,pady=(0,15),padx=(30,30),sticky = W)
     Button(tab_play, text='Logout', bg='black', fg='white', height=1, width=10, command=lambda: userLogOut(app, current_user)).grid(column=0,row=5,pady=(40,0),padx=(10,0),sticky = W)
 
-    ttk.Label(tab_pay, text='Mange your Payment',foreground="green",font=14).grid(column=0,row=0,pady=(10,40),columnspan = 2)
+    ttk.Label(tab_pay, text='Manage your Payment',foreground="green",font=14).grid(column=0,row=0,pady=(10,40),columnspan = 2)
     ttk.Label(tab_pay, text='Account balance:').grid(column=0,row=1,pady=(0,20),padx=(10,10),sticky = W)
     ttk.Label(tab_pay, text='Deposit money:').grid(column=0,row=4,padx=(10,5),sticky = W)
     ttk.Label(tab_pay, text='Withdraw money:').grid(column=0,row=5,padx=(10,5),sticky = W)
     ttk.Button(tab_pay, text='Deposit',command=lambda: validateMoney(deposit_money.get(),1,current_user)).grid(column=2,row=4,padx=(5,5))
     ttk.Button(tab_pay, text='Withdraw',command=lambda: validateMoney(withdraw_money.get(),2,current_user)).grid(column=2,row=5,padx=(5,5))
     Button(tab_pay, text='view money balance',bg='green', fg='white', command=lambda: view.message_box.balanceMes(current_user)).grid(column=1,row=1,sticky = W)
-    Button(tab_pay, text='transection history',bg='green', fg='white', command=lambda: viewTransaction(current_user)).grid(column=1,row=2,sticky = W,pady=(0,20),)
+    Button(tab_pay, text='transaction history',bg='green', fg='white', command=lambda: viewTransaction(current_user)).grid(column=1,row=2,sticky = W,pady=(0,20),)
     Button(tab_pay, text='Logout', bg='black', fg='white', height=1, width=10, command=lambda: userLogOut(app, current_user)).grid(column=0,row=6,pady=(40,0),padx=(10,0),sticky = W)
 
     deposit_money = ttk.Entry(tab_pay)
