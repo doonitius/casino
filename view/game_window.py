@@ -108,25 +108,35 @@ def rpsMainWindow(last_window, current_user):
     game = getGame(game_id)
     app = Tk()
     app.title('RPS game @menu')
+    tabControl = ttk.Notebook(app)
 
-    Label(app, text='Welcome to RPS game').grid(row=0,column=0)
-    Label(app, text='Choose your option:').grid(row=1,column=0)
-    Label(app, text='1.Rock  2.Paper  3.Scissor').grid(row=2,column=0)
-    Label(app, text='Enter your bet:').grid(row=3,column=0)
+    tab_play = ttk.Frame(tabControl)
+    tab_des = ttk.Frame(tabControl)
 
-    player_chosen = Entry(app)
-    player_bet = Entry(app)
+    tabControl.add(tab_play, text='Play')
+    tabControl.add(tab_des, text='Description')
+    tabControl.pack(expand=1, fill="both")
+
+    ttk.Label(tab_play, text='Welcome to RPS game').grid(row=0,column=0)
+    ttk.Label(tab_play, text='Choose your option:').grid(row=1,column=0)
+    ttk.Label(tab_play, text='1.Rock  2.Paper  3.Scissor').grid(row=2,column=0)
+    ttk.Label(tab_play, text='Enter your bet:').grid(row=3,column=0)
+
+    player_chosen = Entry(tab_play)
+    player_bet = Entry(tab_play)
 
     player_chosen.grid(row=2,column=1)
     player_bet.grid(row=3,column=1)
 
-    Button(app, text='Play', command= lambda: validateRPS(player_chosen.get(), player_bet.get(), game, current_user)).grid(row=4,column=0)
-    Button(app, text='Back', command=lambda: backToMenu(
+    Button(tab_play, text='Play', command= lambda: validateRPS(player_chosen.get(), player_bet.get(), game, current_user)).grid(row=4,column=0)
+    Button(tab_play, text='Back', command=lambda: backToMenu(
         app, current_user, game_id)).grid(column=2, row=4)
-    # Need this button ??
-    Button(app, text='Balance', command= lambda: getBalance(current_user)).grid(row=5,column=0)
+    Button(tab_play, text='Balance', command= lambda: getBalance(current_user)).grid(row=5,column=0)
 
-    app.geometry('400x200')
+    ttk.Label(tab_des, text='Description of RPS game').grid(row=0,column=0)
+    ttk.Label(tab_des, text=game.getDesc()).grid(row=1,column=0)
+
+    app.geometry('700x300')
     app.mainloop
 
 def highLowMainWindow(last_window, current_user):
@@ -135,23 +145,33 @@ def highLowMainWindow(last_window, current_user):
     game = getGame(game_id)
     app = Tk()
     app.title('High Low Game @menu')
+    tabControl = ttk.Notebook(app)
 
-    Label(app, text='Welcome to High Low Game').grid(row=0,column=0)
-    Label(app, text='Number start from 1 to 12').grid(row=1,column=0)
-    Label(app, text='High is from 7 to 12  Low is from 1 to 6').grid(row=2,column=0)
-    Label(app, text='Guess the result:').grid(row=3,column=0)
-    Label(app, text='Enter your bet:').grid(row=5,column=0) 
+    tab_play = ttk.Frame(tabControl)
+    tab_des = ttk.Frame(tabControl)
 
-    player_bet = Entry(app)
+    tabControl.add(tab_play, text='Play')
+    tabControl.add(tab_des, text='Description')
+    tabControl.pack(expand=1, fill="both")
+
+    ttk.Label(tab_play, text='Welcome to High Low Game').grid(row=0,column=0)
+    ttk.Label(tab_play, text='Number start from 1 to 12').grid(row=1,column=0)
+    ttk.Label(tab_play, text='High is from 7 to 12  Low is from 1 to 6').grid(row=2,column=0)
+    ttk.Label(tab_play, text='Guess the result:').grid(row=3,column=0)
+    ttk.Label(tab_play, text='Enter your bet:').grid(row=5,column=0) 
+
+    player_bet = ttk.Entry(tab_play)
     player_bet.grid(row=5,column=1)
 
-    Button(app, text='High', command= lambda: validateHighLow(1,player_bet.get(), game, current_user)).grid(row=4,column=0)
-    Button(app, text='Low', command=lambda: validateHighLow(2, player_bet.get(), game, current_user)).grid(row=4, column=1)
-    Button(app, text='Back', command=lambda: backToMenu(
+    Button(tab_play, text='High', command= lambda: validateHighLow(1,player_bet.get(), game, current_user)).grid(row=4,column=0)
+    Button(tab_play, text='Low', command=lambda: validateHighLow(2, player_bet.get(), game, current_user)).grid(row=4, column=1)
+    Button(tab_play, text='Back', command=lambda: backToMenu(
         app, current_user, game_id)).grid(row=6, column=0)
 
+    ttk.Label(tab_des, text='Description of Highlow game').grid(row=0,column=0)
+    ttk.Label(tab_des, text=game.getDesc()).grid(row=1,column=0)
 
-    app.geometry("400x200")
+    app.geometry("700x300")
     app.mainloop
 
 def rouletteMainWindow(last_window, current_user):
@@ -160,28 +180,39 @@ def rouletteMainWindow(last_window, current_user):
     game = getGame(game_id)
     app = Tk()
     app.title('Roulette game @menu')
+    tabControl = ttk.Notebook(app)
 
-    Label(app, text='Welcome to Roulette game').grid(row=0,column=0)
-    Label(app, text='Option that you can bet:').grid(row=1,column=0)
-    Label(app, text='Or enter number from 1-36').grid(row=4,column=0)
-    Label(app, text='Enter your bet').grid(row=5,column=0)
+    tab_play = ttk.Frame(tabControl)
+    tab_des = ttk.Frame(tabControl)
+
+    tabControl.add(tab_play, text='Play')
+    tabControl.add(tab_des, text='Description')
+    tabControl.pack(expand=1, fill="both")
+
+    ttk.Label(tab_play, text='Welcome to Roulette game').grid(row=0,column=0)
+    ttk.Label(tab_play, text='Option that you can bet:').grid(row=1,column=0)
+    ttk.Label(tab_play, text='Or enter number from 1-36').grid(row=4,column=0)
+    ttk.Label(tab_play, text='Enter your bet').grid(row=5,column=0)
 
 
-    player_chosen = Entry(app)
-    player_bet = Entry(app)
+    player_chosen = ttk.Entry(tab_play)
+    player_bet = ttk.Entry(tab_play)
 
     player_chosen.grid(row=4,column=1)
     player_bet.grid(row=5,column=1)
 
-    Button(app, text='1.Red', command= lambda: validateRoulette(1, player_bet.get(), -1, game, current_user)).grid(row=2,column=0)
-    Button(app, text='2.Black', command= lambda: validateRoulette(2, player_bet.get(), -1, game, current_user)).grid(row=2,column=1)
-    Button(app, text='3.Even', command= lambda: validateRoulette(3, player_bet.get(), -1, game, current_user)).grid(row=3,column=0)
-    Button(app, text='4.Odd', command= lambda: validateRoulette(4, player_bet.get(), -1, game, current_user)).grid(row=3,column=1)
-    Button(app, text='Play with number', command= lambda: validateRoulette(5, player_bet.get(), player_chosen.get(), game, current_user)).grid(row=6,column=0)
-    Button(app, text='Back', command=lambda: backToMenu(
+    Button(tab_play, text='1.Red', command= lambda: validateRoulette(1, player_bet.get(), -1, game, current_user)).grid(row=2,column=0)
+    Button(tab_play, text='2.Black', command= lambda: validateRoulette(2, player_bet.get(), -1, game, current_user)).grid(row=2,column=1)
+    Button(tab_play, text='3.Even', command= lambda: validateRoulette(3, player_bet.get(), -1, game, current_user)).grid(row=3,column=0)
+    Button(tab_play, text='4.Odd', command= lambda: validateRoulette(4, player_bet.get(), -1, game, current_user)).grid(row=3,column=1)
+    Button(tab_play, text='Play with number', command= lambda: validateRoulette(5, player_bet.get(), player_chosen.get(), game, current_user)).grid(row=6,column=0)
+    Button(tab_play, text='Back', command=lambda: backToMenu(
         app, current_user, game_id)).grid(column=1, row=6)
 
-    app.geometry('400x200')
+    ttk.Label(tab_des, text='Description of Roulette game').grid(row=0,column=0)
+    ttk.Label(tab_des, text=game.getDesc()).grid(row=1,column=0)
+
+    app.geometry('700x300')
     app.mainloop
 
 def blackjackMainWindow(last_window, current_user):
@@ -190,17 +221,28 @@ def blackjackMainWindow(last_window, current_user):
     game = getGame(game_id)
     app = Tk()
     app.title('Blackjack game @menu')
+    tabControl = ttk.Notebook(app)
 
-    Label(app, text='Welcome to Blackjack game').grid(row=0,column=0)
-    Label(app, text='Enter your bet').grid(row=1,column=0)
+    tab_play = ttk.Frame(tabControl)
+    tab_des = ttk.Frame(tabControl)
+
+    tabControl.add(tab_play, text='Play')
+    tabControl.add(tab_des, text='Description')
+    tabControl.pack(expand=1, fill="both")
+
+    ttk.Label(tab_play, text='Welcome to Blackjack game').grid(row=0,column=0)
+    ttk.Label(tab_play, text='Enter your bet').grid(row=1,column=0)
     
-    player_bet = Entry(app)
+    player_bet = ttk.Entry(tab_play)
 
     player_bet.grid(row=1,column=1)
 
-    Button(app, text='Play', command= lambda: validateBlackjack(player_bet.get(), app, current_user, game)).grid(row=2,column=0)
-    Button(app, text='Back', command=lambda: backToMenu(
+    Button(tab_play, text='Play', command= lambda: validateBlackjack(player_bet.get(), app, current_user, game)).grid(row=2,column=0)
+    Button(tab_play, text='Back', command=lambda: backToMenu(
         app, current_user, game_id)).grid(column=1, row=2)
 
-    app.geometry('400x200')
+    ttk.Label(tab_des, text='Description of Roulette game').grid(row=0,column=0)
+    ttk.Label(tab_des, text=game.getDesc()).grid(row=1,column=0)
+
+    app.geometry('700x300')
     app.mainloop

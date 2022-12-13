@@ -7,7 +7,7 @@ from controller.account_controller import accountDeposit, accountWithdraw
 from game.bet_helper import placeBet
 
 def createRPS():
-    return addGameToList('RPS', 'Rock Paper Scissor')
+    return addGameToList('RPS', 'You have to choose Rock, Paper, Scissor and place your bet before play')
 
 def playRPS(rps,current_user, user_choose, user_bet):
     accountWithdraw(current_user, user_bet, 'Place Bet')

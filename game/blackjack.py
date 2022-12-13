@@ -3,7 +3,7 @@ from controller.account_controller import accountDeposit, accountWithdraw
 from game.bet_helper import placeBet
 
 def createBlackJack():
-    return addGameToList('Black Jack', 'Black Jack na ja')
+    return addGameToList('Black Jack', 'Player random 2 cards. "Bust" is to exceed the Blackjack value (Lose) "hit" for ask more card "stay" for stand this 2 cards')
 
 def playBlackjack(blackjack, current_user, user_bet):
     accountWithdraw(current_user, user_bet, 'Place Bet')

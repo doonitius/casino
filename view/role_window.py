@@ -86,7 +86,7 @@ def userMenuWindow(last_window, current_user):
     tab_pay = ttk.Frame(tabControl)
 
     tabControl.add(tab_play, text='Play')
-    tabControl.add(tab_pay, text='Pay')
+    tabControl.add(tab_pay, text='Account')
     tabControl.pack(expand=1, fill="both")
 
     ttk.Label(tab_play, text='Let play game in Jade Noi 888').grid(column=0,row=0)

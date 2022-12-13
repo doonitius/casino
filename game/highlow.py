@@ -3,7 +3,7 @@ from controller.account_controller import accountDeposit, accountWithdraw
 from game.bet_helper import placeBet
 
 def createHighlow():
-    return addGameToList('HighLow', 'Highlow na mun ko jing jing')
+    return addGameToList('HighLow', 'Number will random from 1-12 and you have to choose high or low we get from random number')
 
 def playHighLow(highlow, current_user, user_value, user_bet):
     accountWithdraw(current_user, user_bet, 'Place Bet')
