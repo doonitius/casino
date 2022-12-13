@@ -28,13 +28,16 @@ def reWindow(last_window, current_user, player, dealer, action, bet, game):
     Label(app, text='Dealer point: '+str(dealer_value)).grid(row=6,column=0,columnspan = 2)
     if (result == 1):
         #winGame(bet) 
-        Label(app, text='Congratulations you win!',foreground="#0BA200A8",font=14).grid(row=7,column=0,pady=(30,10),columnspan = 2)
+        Label(app, text='Congratulations you win!',foreground="green",font=14).grid(row=7,column=0,pady=(30,10),columnspan = 2,sticky = W,padx=(30,0))
+
     elif (result == 0): 
         #loseGame(bet)
-        Label(app, text='Nice try kid',foreground="#FF0000",font=14).grid(row=7,column=0,pady=(30,10),columnspan = 2)
+        Label(app, text='Nice try kid',foreground="#FF0000",font=14).grid(row=7,column=0,pady=(30,10),columnspan = 2,sticky = W,padx=(30,0))
+
     else: 
         #tieGame(bet)
-        Label(app, text='It is a tie!',foreground="#1A57FF",font=14).grid(row=7,column=0,pady=(30,10),columnspan = 2)
+        Label(app, text='It is a tie!',foreground="#1A57FF",font=14).grid(row=7,column=0,pady=(30,10),columnspan = 2,sticky = W,padx=(30,0))
+
     removeGameFromList(game.getGameId())
     Button(app, text='Back', bg='black', fg='white', height=1, width=10,command=lambda: view.game_window.blackjackMainWindow(app,current_user)).grid(row=8,column=0,padx=(10,0),pady=(20,0))
 

@@ -42,14 +42,19 @@ def validateMoney(value, action, current_user):
 def viewTransaction(current_user):
     app = Tk()
     app.title("Transaction")
+    scrollbar = Scrollbar(app, orient=VERTICAL)
+    scrollbar.pack(side=RIGHT, fill=Y)
 
     transaction_list = showTransactionLog(current_user)
     i = 0
+
+    l1 = Listbox(app, height=50, width=150, bg='white',yscrollcommand=scrollbar.set)
+    l1.pack(side=LEFT,padx=15) 
     for transaction in transaction_list:
         print(transaction.displayTransaction())
-        label = Label(app, text=transaction.displayTransaction())
-        label.grid(row=i, column=1,pady=(0,5))
+        l1.insert(END, transaction.displayTransaction())
         i += 1
+    scrollbar.config(command = l1.yview)
     app.geometry("500x500")
     app.mainloop()
 
