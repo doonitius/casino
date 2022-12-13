@@ -106,7 +106,6 @@ class ColorRoulette(Game):
 class HighLow(Game):
     def __init__(self, game_id, name, desc, money_pool):
         Game.__init__(self, game_id, name, desc, money_pool)
-        self.__possible_number = int
 
     def play(self, user_value):
         rng = random.randint(1,12)
@@ -131,18 +130,9 @@ class HighLow(Game):
     def userBet(self, player_bet):
         self.__player_bet = float(player_bet)
 
-class Slot(Game):
-    def __init__(self, game_id, name, desc, money_pool, possible_face):
-        Game.__init__(self, game_id, name, desc, money_pool)
-        self.__possible_face = possible_face
-
-    def play(self):
-        pass
-
 class RPS(Game):
     def __init__(self, game_id, name, desc, money_pool):
         Game.__init__(self, game_id, name, desc, money_pool)
-        # self.__choice = int
 
     def play(self, user_choose):
         rng = random.randint(1, 3)
@@ -181,7 +171,7 @@ class BlackJack(Game):
         self.__player_hand = []
         self.__dealer_hand = []
 
-    def drawCard(self):
+    def __drawCard(self):
         #face card
         face_card = [11,12,13]
         card = random.randint(1,13)
@@ -190,11 +180,11 @@ class BlackJack(Game):
         
     def play(self):
         for card in range(0,2):
-            self.__player_hand.append(self.drawCard())
-            self.__dealer_hand.append(self.drawCard())
+            self.__player_hand.append(self.__drawCard())
+            self.__dealer_hand.append(self.__drawCard())
         return self.__player_hand, self.__dealer_hand
 
-    def checkWinCon(self):
+    def __checkWinCon(self):
         self.__sum_player_hand = sum(self.__player_hand)
         self.__sum_dealer_hand = sum(self.__dealer_hand)
         #-1 = draw, 0 = lost, 1 = win
@@ -212,19 +202,13 @@ class BlackJack(Game):
 
     def checkDealer(self, action):
         
-        if sum(self.__dealer_hand) < 17: self.__dealer_hand.append(self.drawCard())
+        if sum(self.__dealer_hand) < 17: self.__dealer_hand.append(self.__drawCard())
         else: self.__dealer_hand.append(0)
 
-        if action == 1: self.__player_hand.append(self.drawCard())
+        if action == 1: self.__player_hand.append(self.__drawCard())
         else: self.__player_hand.append(0)
 
-        return self.__player_hand, self.__dealer_hand, self.checkWinCon()
-
-    def hit():
-        pass
-
-    def stay():
-        pass
+        return self.__player_hand, self.__dealer_hand, self.__checkWinCon()
 
     def winGame(self):
         return self.__player_bet * 2
