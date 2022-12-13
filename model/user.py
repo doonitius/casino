@@ -22,10 +22,6 @@ class User:
     def setPassword(self, password):
         self.__password = password
 
-    @abstractmethod
-    def isAdmin(self):
-        return False
-
     def __del__(self):
         print("user deleted")
     
