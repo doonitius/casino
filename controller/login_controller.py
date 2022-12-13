@@ -12,10 +12,9 @@ dir = dir.replace('controller','data')
 os.chdir(dir)
 
 def validateUser(username, password, app):
-    isValid, user_role = login(username, password)
-    print(user_role)
+    isValid = login(username, password)
     if isValid:
-        current_user = addUserToList(username, password, user_role)
+        current_user = addUserToList(username, password)
         showUserList()
         userMenuWindow(app,current_user)
     else:
@@ -34,7 +33,6 @@ def login(username, password):
     validUserName = False
     validPassword = False
     access_grant = False
-    role = 0
     f = open("user.txt", "r")
     for line in f:
         user_info = line.split()
@@ -46,7 +44,6 @@ def login(username, password):
 
         if validUserName and validPassword:
             access_grant = True
-            role = int(user_info[2])
             break
     f.close()
-    return access_grant, role
+    return access_grant

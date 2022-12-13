@@ -28,23 +28,4 @@ class User:
 
     def __del__(self):
         print("user deleted")
-
-class Admin(User):
-    def __init__(self, user_id,user_name, password):
-        User.__init__(self, user_id, user_name ,password)
-
-    def addGame(self):
-        print('add game')
-
-    def EditGame(self):
-        print("edit game")
-
-    def DeleteGame(self):
-        print('delete game')
-
-    def AddMoneyPool(self):
-        print('add money pool')
-
-    def isAdmin(self):
-        return True
     

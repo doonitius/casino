@@ -1,8 +1,8 @@
-from model.user import User, Admin
+from model.user import User
 from model.account import Account
 from controller.object_controller import id_generator, getUserList, updateUserList, getAccountList, updateAccountList
 
-def addUserToList(user_name, password, role):
+def addUserToList(user_name, password):
 
     user_list = getUserList()
     user_id = id_generator(user_list)
@@ -10,10 +10,7 @@ def addUserToList(user_name, password, role):
     account_list = getAccountList()
     account_id = id_generator(account_list)
 
-    if role == 0:
-        new_user = Admin(user_id, user_name, password)
-    else:
-        new_user = User(user_id, user_name, password)
+    new_user = User(user_id, user_name, password)
 
     new_account = Account(account_id, user_id)
 

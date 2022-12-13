@@ -1,2 +1,2 @@
-jade 8888 0
-preem 9999 1
+jade 8888
+preem 9999
