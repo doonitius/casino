@@ -1,6 +1,6 @@
 import os
 from view.message_box import loginError
-from view.role_window import userMenuWindow
+from view.main_menu import userMenuWindow
 from controller.user_controller import addUserToList, showUserList
 
 path = os.path.realpath(__file__)
