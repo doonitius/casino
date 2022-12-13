@@ -190,9 +190,7 @@ class BlackJack(Game):
         #-1 = draw, 0 = lost, 1 = win
         if self.__sum_dealer_hand > 21 and self.__sum_player_hand <= 21: return 1
 
-        if self.__sum_dealer_hand <= 21 and self.__sum_player_hand > 21: return 0
-
-        if self.__sum_dealer_hand > 21 and self.__sum_player_hand > 21: return -1
+        if self.__sum_player_hand > 21: return 0
 
         if self.__sum_dealer_hand < self.__sum_player_hand: return 1
 
