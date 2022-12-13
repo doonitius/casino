@@ -20,7 +20,7 @@ def loseGameMes():
     messagebox.showinfo('Result', 'Unlucky you lose')
 
 def drawGameMes():
-    messagebox.showinfo('Result', 'It a tie')
+    messagebox.showinfo('Result', 'It is a tie')
 
 def depositMes(balance, deposit_amount):
     total = float(balance) + float(deposit_amount)
