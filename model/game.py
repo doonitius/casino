@@ -61,21 +61,6 @@ class Game:
     def play(self):
         pass
 
-
-class Spin(Game):
-    def __init__(self, game_id, name, desc, money_pool):
-        Game.__init__(self, game_id, name, desc, money_pool)
-        self.__possible_multiply = float
-
-    def play(self):
-        pass
-
-    def getMultiply(self):
-        return self.__possible_multiply
-
-    def setMultiply(self, possible_multiply):
-        self.__possible_multiply = possible_multiply
-
 class ColorRoulette(Game):
     def __init__(self, game_id, name, desc, money_pool):
         Game.__init__(self, game_id, name, desc, money_pool)
